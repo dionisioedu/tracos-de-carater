@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traços de Caráter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <section id="intro" class="screen active">
+            <h1>Traços de Caráter</h1>
+            <p>Descubra mais sobre você com base nas formas do seu corpo.</p>
+            <button id="start-btn">Iniciar Teste</button>
+        </section>
+
+        <section id="test" class="screen">
+            <h2 id="question-title"></h2>
+            <div id="options" class="options-grid"></div>
+            <button id="next-btn" disabled>Próximo</button>
+        </section>
+
+        <section id="result" class="screen">
+            <h2>Seu Perfil</h2>
+            <div id="result-content"></div>
+            <button id="restart-btn">Reiniciar</button>
+        </section>
+    </div>
+
+    <audio id="click-sound" src="assets/sounds/click.mp3"></audio>
+    <script src="scripts.js"></script>
+</body>
+</html>
