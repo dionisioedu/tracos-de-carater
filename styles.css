@@ -92,6 +92,7 @@ button:disabled {
     background-color: bisque;
     border: none;
     border-radius: 5px;
+    margin-top: 10px;
     margin-bottom: 20px;
     width: 80%;
     text-align: center;

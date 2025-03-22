@@ -38,6 +38,17 @@ masoquistaCabecaImg.src = 'assets/images/masoquista-cabeca.png';
 const rigidoCabecaImg = new Image();
 rigidoCabecaImg.src = 'assets/images/rigido-cabeca.png';
 
+const esquizoideOlhosImg = new Image();
+esquizoideOlhosImg.src = 'assets/images/esquizoide-olhos.png';
+const oralOlhosImg = new Image();
+oralOlhosImg.src = 'assets/images/oral-olhos.png';
+const psicopataOlhosImg = new Image();
+psicopataOlhosImg.src = 'assets/images/psicopata-olhos.png';
+const masoquistaOlhosImg = new Image();
+masoquistaOlhosImg.src = 'assets/images/masoquista-olhos.png';
+const rigidoOlhosImg = new Image();
+rigidoOlhosImg.src = 'assets/images/rigido-olhos.png';
+
 const steps = [
     { title: "Qual forma geral do corpo mais se parece com o seu?", subtitle: "", type: "single", key: "body",
         options: [
@@ -54,7 +65,14 @@ const steps = [
             ["D", masoquistaCabecaImg],
             ["E", rigidoCabecaImg]
         ] },
-    { title: "Formato dos olhos", subtitle: "(distribua 10 pontos)", type: "score", key: "eyes", options: ["A", "B", "C", "D", "E"] },
+    { title: "Formato dos olhos", subtitle: "(distribua 10 pontos)", type: "score", key: "eyes",
+        options: [
+            ["A", esquizoideOlhosImg],
+            ["B", oralOlhosImg],
+            ["C", psicopataOlhosImg],
+            ["D", masoquistaOlhosImg],
+            ["E", rigidoOlhosImg]
+        ] },
     { title: "Formato da boca", subtitle: "(distribua 10 pontos)", type: "score", key: "mouth", options: ["A", "B", "C", "D", "E"] },
     { title: "Formato do tronco", subtitle: "(distribua 10 pontos)", type: "score", key: "torso", options: ["A", "B", "C", "D", "E"] },
     { title: "Formato do quadril", subtitle: "(distribua 10 pontos)", type: "score", key: "hips", options: ["A", "B", "C", "D", "E"] },
