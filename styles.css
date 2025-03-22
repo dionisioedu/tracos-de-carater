@@ -76,8 +76,7 @@ button:disabled {
     gap: 20px;
     margin-bottom: 30px;
 }
-
-.option {
+.option button {
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 10px;
     padding: 10px;
@@ -85,6 +84,32 @@ button:disabled {
     transition: transform 0.2s;
     text-align: center;
     width: 140px;
+}
+.option input[type="number"] {
+    padding: 10px;
+    font-size: 1.1rem;
+    color: #1e3c72;
+    background-color: bisque;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 80%;
+    text-align: center;
+}
+.option {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px;;
+    transition: transform 0.2s;
+    text-align: center;
+    width: 140px;
+    vertical-align: bottom;
+    align-items: center;
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 .option:hover {
     transform: scale(1.5s);
@@ -97,6 +122,11 @@ button:disabled {
     width: 280px;
     position: relative;
     left: -70px;
+}
+
+.piecesImg {
+    width: 140px;
+    position: relative;
 }
 
 @keyframes fadeIn {

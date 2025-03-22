@@ -8,6 +8,7 @@ const nextBtn = document.getElementById('next-btn');
 const previousBtn = document.getElementById('previous-btn');
 const restartBtn = document.getElementById('restart-btn');
 const questionTitle = document.getElementById('question-title');
+const questionSubtitle = document.getElementById('question-subtitle');
 const optionsDiv = document.getElementById('options');
 const resultContent = document.getElementById('result-content');
 const clickSound = document.getElementById('click-sound');
@@ -16,34 +17,48 @@ let currentStep = 0;
 let userChoices = { body: null, head: 0, eyes: 0, mouth: 0, torso: 0, hips: 0, legs: 0 };
 
 const esquizoideImg = new Image();
-esquizoideImg.src = 'assets/images/ESQUIZOIDE.svg';
-
+esquizoideImg.src = 'assets/images/esquizoide.svg';
 const oralImg = new Image();
-oralImg.src = 'assets/images/ORAL.svg';
-
+oralImg.src = 'assets/images/oral.svg';
 const psicopataImg = new Image();
-psicopataImg.src = 'assets/images/PSICOPATA.svg';
-
+psicopataImg.src = 'assets/images/psicopata.svg';
 const masoquistaImg = new Image();
-masoquistaImg.src = 'assets/images/MASOQUISTA.svg';
-
+masoquistaImg.src = 'assets/images/masoquista.svg';
 const rigidoImg = new Image();
-rigidoImg.src = 'assets/images/RIGIDO.svg';
+rigidoImg.src = 'assets/images/rigido.svg';
+
+const esquizoideCabecaImg = new Image();
+esquizoideCabecaImg.src = 'assets/images/esquizoide-cabeca.png';
+const oralCabecaImg = new Image();
+oralCabecaImg.src = 'assets/images/oral-cabeca.png';
+const psicopataCabecaImg = new Image();
+psicopataCabecaImg.src = 'assets/images/psicopata-cabeca.png';
+const masoquistaCabecaImg = new Image();
+masoquistaCabecaImg.src = 'assets/images/masoquista-cabeca.png';
+const rigidoCabecaImg = new Image();
+rigidoCabecaImg.src = 'assets/images/rigido-cabeca.png';
 
 const steps = [
-    { title: "Qual forma geral do corpo mais se parece com o seu?", type: "single", key: "body",
+    { title: "Qual forma geral do corpo mais se parece com o seu?", subtitle: "", type: "single", key: "body",
         options: [
             ["Esquizóide", esquizoideImg],
             ["Oral", oralImg],
             ["Psicopata", psicopataImg],
             ["Masoquista", masoquistaImg],
             ["Rígido", rigidoImg]] },
-    { title: "Formato da cabeça (distribua 10 pontos)", type: "score", key: "head", options: ["A", "B", "C", "D", "E"] },
-    { title: "Formato dos olhos (distribua 10 pontos)", type: "score", key: "eyes", options: ["A", "B", "C", "D", "E"] },
-    { title: "Formato da boca (distribua 10 pontos)", type: "score", key: "mouth", options: ["A", "B", "C", "D", "E"] },
-    { title: "Formato do tronco (distribua 10 pontos)", type: "score", key: "torso", options: ["A", "B", "C", "D", "E"] },
-    { title: "Formato do quadril (distribua 10 pontos)", type: "score", key: "hips", options: ["A", "B", "C", "D", "E"] },
-    { title: "Formato das pernas (distribua 10 pontos)", type: "score", key: "legs", options: ["A", "B", "C", "D", "E"] }
+    { title: "Formato da cabeça", subtitle: "(distribua 10 pontos)", type: "score", key: "head",
+        options: [
+            ["A", esquizoideCabecaImg],
+            ["B", oralCabecaImg],
+            ["C", psicopataCabecaImg],
+            ["D", masoquistaCabecaImg],
+            ["E", rigidoCabecaImg]
+        ] },
+    { title: "Formato dos olhos", subtitle: "(distribua 10 pontos)", type: "score", key: "eyes", options: ["A", "B", "C", "D", "E"] },
+    { title: "Formato da boca", subtitle: "(distribua 10 pontos)", type: "score", key: "mouth", options: ["A", "B", "C", "D", "E"] },
+    { title: "Formato do tronco", subtitle: "(distribua 10 pontos)", type: "score", key: "torso", options: ["A", "B", "C", "D", "E"] },
+    { title: "Formato do quadril", subtitle: "(distribua 10 pontos)", type: "score", key: "hips", options: ["A", "B", "C", "D", "E"] },
+    { title: "Formato das pernas", subtitle: "(distribua 10 pontos)", type: "score", key: "legs", options: ["A", "B", "C", "D", "E"] }
 ];
 
 function showScreen(screenId) {
@@ -54,6 +69,7 @@ function showScreen(screenId) {
 function loadSteps() {
     const step = steps[currentStep];
     questionTitle.textContent = step.title;
+    questionSubtitle.textContent = step.subtitle;
     optionsDiv.innerHTML = '';
 
     if (step.type === "single") {
@@ -65,14 +81,12 @@ function loadSteps() {
                 document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
                 btn.classList.add('selected');
                 userChoices[step.key] = opt[0];
-
                 nextStep();
             };
 
             const div = document.createElement('div');
             opt[1].classList.add('characterImg');
             div.appendChild(opt[1]);
-
             div.appendChild(btn);
 
             optionsDiv.appendChild(div);
@@ -86,8 +100,6 @@ function loadSteps() {
         step.options.forEach(opt => {
             const div = document.createElement('div');
             div.classList.add('option');
-            const label = document.createElement('span');
-            label.textContent = opt;
             const input = document.createElement('input');
             input.type = 'number';
             input.min = 0;
@@ -97,7 +109,9 @@ function loadSteps() {
                 total = Array.from(optionsDiv.querySelectorAll('input')).reduce((sum, inp) => sum + Number(inp.value), 0);
                 nextBtn.disabled = total !== 10;
             };
-            div.appendChild(label);
+            const image = opt[1];
+            image.classList.add('piecesImg');
+            div.appendChild(image);
             div.appendChild(input);
             optionsDiv.appendChild(div);
         });
