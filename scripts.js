@@ -8,6 +8,7 @@ const nextBtn = document.getElementById('next-btn');
 const previousBtn = document.getElementById('previous-btn');
 const restartBtn = document.getElementById('restart-btn');
 const questionTitle = document.getElementById('question-title');
+const bodyType = document.getElementById('body-type');
 const questionSubtitle = document.getElementById('question-subtitle');
 const optionsDiv = document.getElementById('options');
 const resultContent = document.getElementById('result-content');
@@ -16,7 +17,15 @@ const pointsLeft = document.getElementById('points-left');
 
 let currentStep = 0;
 let currentPointsLeft = 10;
-let userChoices = { body: null, head: 0, eyes: 0, mouth: 0, torso: 0, hips: 0, legs: 0 };
+let userChoices = { 
+    'body': null,
+    'head': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
+    'eyes': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
+    'mouth': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
+    'torso': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
+    'hips': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
+    'legs': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 }
+};
 
 const esquizoideImg = new Image();
 esquizoideImg.src = 'assets/images/esquizoide.svg';
@@ -51,6 +60,50 @@ masoquistaOlhosImg.src = 'assets/images/masoquista-olhos.png';
 const rigidoOlhosImg = new Image();
 rigidoOlhosImg.src = 'assets/images/rigido-olhos.png';
 
+const esquizoideBocaImg = new Image();
+esquizoideBocaImg.src = 'assets/images/esquizoide-boca.png';
+const oralBocaImg = new Image();
+oralBocaImg.src = 'assets/images/oral-boca.png';
+const psicopataBocaImg = new Image();
+psicopataBocaImg.src = 'assets/images/psicopata-boca.png';
+const masoquistaBocaImg = new Image();
+masoquistaBocaImg.src = 'assets/images/masoquista-boca.png';
+const rigidoBocaImg = new Image();
+rigidoBocaImg.src = 'assets/images/rigido-boca.png';
+
+const esquizoideTorsoImg = new Image();
+esquizoideTorsoImg.src = 'assets/images/esquizoide-tronco.png';
+const oralTorsoImg = new Image();
+oralTorsoImg.src = 'assets/images/oral-tronco.png';
+const psicopataTorsoImg = new Image();
+psicopataTorsoImg.src = 'assets/images/psicopata-tronco.png';
+const masoquistaTorsoImg = new Image();
+masoquistaTorsoImg.src = 'assets/images/masoquista-tronco.png';
+const rigidoTorsoImg = new Image();
+rigidoTorsoImg.src = 'assets/images/rigido-tronco.png';
+
+const esquizoideQuadrilImg = new Image();
+esquizoideQuadrilImg.src = 'assets/images/esquizoide-quadril.png';
+const oralQuadrilImg = new Image();
+oralQuadrilImg.src = 'assets/images/oral-quadril.png';
+const psicopataQuadrilImg = new Image();
+psicopataQuadrilImg.src = 'assets/images/psicopata-quadril.png';
+const masoquistaQuadrilImg = new Image();
+masoquistaQuadrilImg.src = 'assets/images/masoquista-quadril.png';
+const rigidoQuadrilImg = new Image();
+rigidoQuadrilImg.src = 'assets/images/rigido-quadril.png';
+
+const esquizoidePernasImg = new Image();
+esquizoidePernasImg.src = 'assets/images/esquizoide-pernas.png';
+const oralPernasImg = new Image();
+oralPernasImg.src = 'assets/images/oral-pernas.png';
+const psicopataPernasImg = new Image();
+psicopataPernasImg.src = 'assets/images/psicopata-pernas.png';
+const masoquistaPernasImg = new Image();
+masoquistaPernasImg.src = 'assets/images/masoquista-pernas.png';
+const rigidoPernasImg = new Image();
+rigidoPernasImg.src = 'assets/images/rigido-pernas.png';
+
 const steps = [
     { title: "Qual forma geral do corpo mais se parece com o seu?", subtitle: "", type: "single", key: "body",
         options: [
@@ -61,24 +114,52 @@ const steps = [
             ["Rígido", rigidoImg]] },
     { title: "Formato da cabeça", subtitle: "Distribua os pontos", type: "score", key: "head",
         options: [
-            ["A", esquizoideCabecaImg],
-            ["B", oralCabecaImg],
-            ["C", psicopataCabecaImg],
-            ["D", masoquistaCabecaImg],
-            ["E", rigidoCabecaImg]
+            ["esquizoide", esquizoideCabecaImg],
+            ["oral", oralCabecaImg],
+            ["psicopata", psicopataCabecaImg],
+            ["masoquista", masoquistaCabecaImg],
+            ["rigido", rigidoCabecaImg]
         ] },
-    { title: "Formato dos olhos", subtitle: "(distribua 10 pontos)", type: "score", key: "eyes",
+    { title: "Formato dos olhos", subtitle: "Distribua os pontos", type: "score", key: "eyes",
         options: [
-            ["A", esquizoideOlhosImg],
-            ["B", oralOlhosImg],
-            ["C", psicopataOlhosImg],
-            ["D", masoquistaOlhosImg],
-            ["E", rigidoOlhosImg]
+            ["esquizoide", esquizoideOlhosImg],
+            ["oral", oralOlhosImg],
+            ["psicopata", psicopataOlhosImg],
+            ["masoquista", masoquistaOlhosImg],
+            ["rigido", rigidoOlhosImg]
         ] },
-    { title: "Formato da boca", subtitle: "(distribua 10 pontos)", type: "score", key: "mouth", options: ["A", "B", "C", "D", "E"] },
-    { title: "Formato do tronco", subtitle: "(distribua 10 pontos)", type: "score", key: "torso", options: ["A", "B", "C", "D", "E"] },
-    { title: "Formato do quadril", subtitle: "(distribua 10 pontos)", type: "score", key: "hips", options: ["A", "B", "C", "D", "E"] },
-    { title: "Formato das pernas", subtitle: "(distribua 10 pontos)", type: "score", key: "legs", options: ["A", "B", "C", "D", "E"] }
+    { title: "Formato da boca", subtitle: "Distribua os pontos", type: "score", key: "mouth",
+        options: [
+            ["esquizoide", esquizoideBocaImg],
+            ["oral", oralBocaImg],
+            ["psicopata", psicopataBocaImg],
+            ["masoquista", masoquistaBocaImg],
+            ["rigido", rigidoBocaImg]
+        ] },
+    { title: "Formato do tronco", subtitle: "Distribua os pontos", type: "score", key: "torso",
+        options: [
+            ["esquizoide", esquizoideTorsoImg],
+            ["oral", oralTorsoImg],
+            ["psicopata", psicopataTorsoImg],
+            ["masoquista", masoquistaTorsoImg],
+            ["rigido", rigidoTorsoImg]
+        ] },
+    { title: "Formato do quadril", subtitle: "Distribua os pontos", type: "score", key: "hips",
+        options: [
+            ["esquizoide", esquizoideQuadrilImg],
+            ["oral", oralQuadrilImg],
+            ["psicopata", psicopataQuadrilImg],
+            ["masoquista", masoquistaQuadrilImg],
+            ["rigido", rigidoQuadrilImg],
+        ] },
+    { title: "Formato das pernas", subtitle: "Distribua os pontos", type: "score", key: "legs",
+        options: [
+            ["esquizoide", esquizoidePernasImg],
+            ["oral", oralPernasImg],
+            ["psicopata", psicopataPernasImg],
+            ["masoquista", masoquistaPernasImg],
+            ["rigido", rigidoPernasImg],
+        ] },
 ];
 
 function showScreen(screenId) {
@@ -86,9 +167,19 @@ function showScreen(screenId) {
     screens[screenId].classList.add('active');
 }
 
-function handleOptionClick(element, option, step) {
+function handleOptionClick(option, step) {
     userChoices[step.key] = option[0];
+
+    console.log("Body type is " + step.key + " = " + option[0]);
     nextStep();
+}
+
+function updatePointsCount() {
+    playDefaultSound();
+    total = Array.from(optionsDiv.querySelectorAll('input')).reduce((sum, inp) => sum + Number(inp.value), 0);
+    nextBtn.disabled = total !== 10;
+    currentPointsLeft = 10 - total;
+    pointsLeft.innerText = currentPointsLeft;
 }
 
 function loadSteps() {
@@ -100,13 +191,14 @@ function loadSteps() {
 
     if (step.type === "single") {
         step.options.forEach(opt => {
+            bodyType.innerText = '';
             const btn = document.createElement('button');
             btn.classList.add('option');
             btn.textContent = opt[0];
-            btn.onclick = () => handleOptionClick(btn, opt, step);
+            btn.onclick = () => handleOptionClick(opt, step);
 
             opt[1].classList.add('characterImg');
-            opt[1].onclick = () => handleOptionClick(opt[1], opt, step);
+            opt[1].onclick = () => handleOptionClick(opt, step);
 
             const div = document.createElement('div');
             div.appendChild(opt[1]);
@@ -117,7 +209,8 @@ function loadSteps() {
         previousBtn.classList.add('hidden');
         nextBtn.classList.add('hidden');
     } else if (step.type === "score") {
-        let total = 0;
+        bodyType.innerText = userChoices['body'];
+        currentPointsLeft = 10;
         pointsLeft.innerText = currentPointsLeft;
         previousBtn.classList.remove('hidden');
         nextBtn.classList.remove('hidden');
@@ -128,37 +221,67 @@ function loadSteps() {
             input.type = 'number';
             input.min = 0;
             input.max = 10;
-            input.value = 0;
-            input.onchange = () => {
-                total = Array.from(optionsDiv.querySelectorAll('input')).reduce((sum, inp) => sum + Number(inp.value), 0);
-                nextBtn.disabled = total !== 10;
-            };
+            input.value = userChoices[step.key][opt[0]];
+            input.id = opt[0];
+            input.onchange = () => updatePointsCount();
             const image = opt[1];
             image.classList.add('piecesImg');
             image.onclick = () => {
-                input.value += 1;
+                if (currentPointsLeft > 0) {
+                    input.value = Number(input.value) + 1;
+                    updatePointsCount();
+                }
             };
             div.appendChild(image);
             div.appendChild(input);
             optionsDiv.appendChild(div);
         });
+        updatePointsCount();
     }
 }
 
+function sumTotalUserChoices(character) {
+    let total = 0;
+    total += userChoices['head'][character];
+    total += userChoices['eyes'][character];
+    total += userChoices['mouth'][character];
+    total += userChoices['torso'][character];
+    total += userChoices['hips'][character];
+    total += userChoices['legs'][character];
+    return total;
+}
+
 function calculateResult() {
-    const traits = {
-        pensar: (userChoices.head + userChoices.eyes) / 20 * 0.6,
-        sentir: (userChoices.mouth + userChoices.torso) / 20 * 0.4,
-        agir: (userChoices.hips + userChoices.legs) / 20 * 0.4,
-        controle: 0.4,
-        perfeicao: 0.4
-    };
+    let esquizoide = sumTotalUserChoices('esquizoide');
+    let oral = sumTotalUserChoices('oral');
+    let psicopata = sumTotalUserChoices('psicopata');
+    let masoquista = sumTotalUserChoices('masoquista');
+    let rigido = sumTotalUserChoices('rigido');
+
+    switch (userChoices['body']) {
+        case 'Esquizóide':
+            esquizoide += 40;
+            break;
+        case 'Oral':
+            oral += 40;
+            break;
+        case 'Psicopata':
+            psicopata += 40;
+            break;
+        case 'Masoquista':
+            masoquista += 40;
+            break;
+        case 'Rígido':
+            rigido += 40;
+            break;
+    }
+
     return `
-        <p>Pensar: ${Math.round(traits.pensar * 100)}% (Necessidade de estar com pessoas)</p>
-        <p>Sentir: ${Math.round(traits.sentir * 100)}% (Emocional vs. Racional)</p>
-        <p>Agir: ${Math.round(traits.agir * 100)}% (Executar vs. Delegar)</p>
-        <p>Necessidade de Controle: ${Math.round(traits.controle * 100)}%</p>
-        <p>Necessidade de Perfeição: ${Math.round(traits.perfeicao * 100)}%</p>
+        <p>Esquizóide: ${esquizoide}% (Criatividade)</p>
+        <p>Oral: ${oral}% (Comunicação)</p>
+        <p>Psicopata: ${psicopata}% (Liderança)</p>
+        <p>Masoquista: ${masoquista}% (Perfeccionismo)</p>
+        <p>Rígido: ${rigido}% (Execução)</p>
     `;
 }
 
@@ -178,7 +301,23 @@ function nextStep() {
     const step = steps[currentStep];
     if (step.type === "score") {
         const inputs = optionsDiv.querySelectorAll('input');
-        userChoices[step.key] = Array.from(inputs).reduce((sum, inp) => sum + Number(inp.value), 0);
+        const esquizoide = Array.from(inputs).find(el => el.id === 'esquizoide');
+        const oral = Array.from(inputs).find(el => el.id === 'oral');
+        const psicopata = Array.from(inputs).find(el => el.id === 'psicopata');
+        const masoquista = Array.from(inputs).find(el => el.id === 'masoquista');
+        const rigido = Array.from(inputs).find(el => el.id === 'rigido');
+
+        userChoices[step.key]['esquizoide'] = Number(esquizoide.value);
+        userChoices[step.key]['oral'] = Number(oral.value);
+        userChoices[step.key]['psicopata'] = Number(psicopata.value);
+        userChoices[step.key]['masoquista'] = Number(masoquista.value);
+        userChoices[step.key]['rigido'] = Number(rigido.value);
+
+        console.log(">> esquizoide: " + Number(esquizoide.value));
+        console.log(">> oral: " + Number(oral.value));
+        console.log(">> psicopata: " + Number(psicopata.value));
+        console.log(">> masoquista: " + Number(masoquista.value));
+        console.log(">> rigido: " + Number(rigido.value));
     }
     currentStep++;
     if (currentStep < steps.length) {
@@ -203,7 +342,15 @@ nextBtn.onclick = nextStep;
 
 restartBtn.onclick = () => {
     currentStep = 0;
-    userChoices = { body: null, head: 0, eyes: 0, mouth: 0, torso: 0, hips: 0, legs: 0 };
+    let userChoices = { 
+        'body': null,
+        'head': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
+        'eyes': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
+        'mouth': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
+        'torso': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
+        'hips': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
+        'legs': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 }
+    };
     showScreen('intro');
     playDefaultSound();
 };

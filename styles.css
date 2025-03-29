@@ -44,6 +44,15 @@ h1, h2 {
     margin-bottom: 20px;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
+h3 {
+    font-size: 1.6rem;
+    font-style: italic;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+h4 {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
 
 p {
     font-size: 1.2rem;
@@ -141,6 +150,7 @@ button:disabled {
 .points-left {
     font-size: xx-large;
     font-weight: bolder;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .characterImg {
