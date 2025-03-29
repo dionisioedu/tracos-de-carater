@@ -95,6 +95,7 @@ function loadSteps() {
     const step = steps[currentStep];
     questionTitle.textContent = step.title;
     questionSubtitle.textContent = step.subtitle;
+    pointsLeft.innerText = "";
     optionsDiv.innerHTML = '';
 
     if (step.type === "single") {
@@ -134,6 +135,9 @@ function loadSteps() {
             };
             const image = opt[1];
             image.classList.add('piecesImg');
+            image.onclick = () => {
+                input.value += 1;
+            };
             div.appendChild(image);
             div.appendChild(input);
             optionsDiv.appendChild(div);
@@ -158,10 +162,16 @@ function calculateResult() {
     `;
 }
 
+function playDefaultSound() {
+    clickSound.pause();
+    clickSound.currentTime = 0;
+    clickSound.play();
+}
+
 function previousStep() {
     currentStep--;
     loadSteps();
-    clickSound.play();
+    playDefaultSound();
 }
 
 function nextStep() {
@@ -179,13 +189,13 @@ function nextStep() {
         resultContent.innerHTML = calculateResult();
     }
 
-    clickSound.play();
+    playDefaultSound();
 }
 
 startBtn.onclick = () => {
     showScreen('test');
     loadSteps();
-    clickSound.play();
+    playDefaultSound();
 };
 
 previousBtn.onclick = previousStep;
@@ -195,5 +205,5 @@ restartBtn.onclick = () => {
     currentStep = 0;
     userChoices = { body: null, head: 0, eyes: 0, mouth: 0, torso: 0, hips: 0, legs: 0 };
     showScreen('intro');
-    clickSound.play();
+    playDefaultSound();
 };
