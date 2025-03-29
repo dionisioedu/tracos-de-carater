@@ -26,6 +26,7 @@ body {
     width: 90%;
     padding: 20px;
     text-align: center;
+    align-items: center;
 }
 
 .screen {
@@ -76,6 +77,10 @@ button:disabled {
     width: 80%;
     border-radius: 20px;
     margin: 20px;
+    transition: transform 0.3s ease;
+}
+.start-banner:hover {
+    transform: scale(1.1);
 }
 .options-grid {
     display: grid;
@@ -94,9 +99,10 @@ button:disabled {
 }
 .option input[type="number"] {
     padding: 10px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
     color: #1e3c72;
-    background-color: bisque;
+    background-color: rgb(245, 239, 232);
     border: none;
     border-radius: 5px;
     margin-top: 10px;
@@ -126,15 +132,34 @@ button:disabled {
     background: rgba(255, 255, 255, 0.3);
 }
 
+.subtitle-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.points-left {
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
 .characterImg {
     width: 280px;
     position: relative;
-    left: -70px;
+    left: -50px;
+    transition: transform 0.3s ease;
+}
+.characterImg:hover {
+    transform: scale(1.1);
 }
 
 .piecesImg {
     width: 140px;
     position: relative;
+    transition: transform 0.3s ease;
+}
+.piecesImg:hover {
+    transform: scale(1.1);
 }
 
 @keyframes fadeIn {

@@ -12,8 +12,10 @@ const questionSubtitle = document.getElementById('question-subtitle');
 const optionsDiv = document.getElementById('options');
 const resultContent = document.getElementById('result-content');
 const clickSound = document.getElementById('click-sound');
+const pointsLeft = document.getElementById('points-left');
 
 let currentStep = 0;
+let currentPointsLeft = 10;
 let userChoices = { body: null, head: 0, eyes: 0, mouth: 0, torso: 0, hips: 0, legs: 0 };
 
 const esquizoideImg = new Image();
@@ -57,7 +59,7 @@ const steps = [
             ["Psicopata", psicopataImg],
             ["Masoquista", masoquistaImg],
             ["Rígido", rigidoImg]] },
-    { title: "Formato da cabeça", subtitle: "(distribua 10 pontos)", type: "score", key: "head",
+    { title: "Formato da cabeça", subtitle: "Distribua os pontos", type: "score", key: "head",
         options: [
             ["A", esquizoideCabecaImg],
             ["B", oralCabecaImg],
@@ -84,6 +86,11 @@ function showScreen(screenId) {
     screens[screenId].classList.add('active');
 }
 
+function handleOptionClick(element, option, step) {
+    userChoices[step.key] = option[0];
+    nextStep();
+}
+
 function loadSteps() {
     const step = steps[currentStep];
     questionTitle.textContent = step.title;
@@ -95,15 +102,12 @@ function loadSteps() {
             const btn = document.createElement('button');
             btn.classList.add('option');
             btn.textContent = opt[0];
-            btn.onclick = () => {
-                document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
-                btn.classList.add('selected');
-                userChoices[step.key] = opt[0];
-                nextStep();
-            };
+            btn.onclick = () => handleOptionClick(btn, opt, step);
+
+            opt[1].classList.add('characterImg');
+            opt[1].onclick = () => handleOptionClick(opt[1], opt, step);
 
             const div = document.createElement('div');
-            opt[1].classList.add('characterImg');
             div.appendChild(opt[1]);
             div.appendChild(btn);
 
@@ -113,6 +117,7 @@ function loadSteps() {
         nextBtn.classList.add('hidden');
     } else if (step.type === "score") {
         let total = 0;
+        pointsLeft.innerText = currentPointsLeft;
         previousBtn.classList.remove('hidden');
         nextBtn.classList.remove('hidden');
         step.options.forEach(opt => {
