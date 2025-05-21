@@ -1,9 +1,13 @@
 const screens = {
     intro: document.getElementById('intro'),
+    register: document.getElementById('register'),
     test: document.getElementById('test'),
     result: document.getElementById('result')
 };
+
+
 const startBtn = document.getElementById('start-btn');
+const testBtn = document.getElementById('test-btn');
 const nextBtn = document.getElementById('next-btn');
 const previousBtn = document.getElementById('previous-btn');
 const restartBtn = document.getElementById('restart-btn');
@@ -17,7 +21,8 @@ const pointsLeft = document.getElementById('points-left');
 
 let currentStep = 0;
 let currentPointsLeft = 10;
-let userChoices = { 
+let userChoices = {
+    'user': { 'name': '', 'age': 0, 'email': '', 'phone': '', 'gender': '', 'profession': '', 'country': '', 'state': '' },
     'body': null,
     'head': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
     'eyes': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
@@ -162,6 +167,13 @@ const steps = [
         ] },
 ];
 
+/*
+  $('#start').onclick = () => {
+    const n=$('#name').value.trim(), a=$('#age').value.trim(), e=$('#email').value.trim();
+    if(!n||!a||!e) return alert('Preencha todos os campos');
+    state.user={name:n,age:a,email:e}; state.answers=[]; state.idx=0; question();
+  };
+*/
 function showScreen(screenId) {
     Object.values(screens).forEach(screen => screen.classList.remove('active'));
     screens[screenId].classList.add('active');
@@ -324,6 +336,7 @@ function nextStep() {
         loadSteps();
         nextBtn.disabled = true;
     } else {
+        saveResults();
         showScreen('result');
         resultContent.innerHTML = calculateResult();
     }
@@ -331,18 +344,36 @@ function nextStep() {
     playDefaultSound();
 }
 
+async function saveResults() {
+    console.log("Sending data to server...");
+    console.log(JSON.stringify(userChoices));
+    try {
+        await fetch("https://script.google.com/macros/s/AKfycbzR9KhbByY4sCHvlC_FEUxA8oBaxNsy4Wz4AkUYxH5_CdNFDgIaH0SQHrDQ8wBwSWC8aw/exec", {
+            method:"POST",
+            body: JSON.stringify(userChoices)
+        });
+    } catch (err) {
+        console.error("Failed to send data: " + err);
+    }
+}
+
 startBtn.onclick = () => {
+    showScreen('register');
+    playDefaultSound();
+};
+
+testBtn.onclick = () => {
     showScreen('test');
     loadSteps();
     playDefaultSound();
-};
+}
 
 previousBtn.onclick = previousStep;
 nextBtn.onclick = nextStep;
 
 restartBtn.onclick = () => {
     currentStep = 0;
-    let userChoices = { 
+    userChoices = { 
         'body': null,
         'head': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
         'eyes': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
