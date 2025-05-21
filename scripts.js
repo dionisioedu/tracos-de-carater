@@ -394,7 +394,7 @@ nextBtn.onclick = nextStep;
 restartBtn.onclick = () => {
     currentStep = 0;
     userChoices = {
-        'user': { 'name': '', 'age': 0, 'email': '', 'phone': '', 'gender': '', 'profession': '', 'country': '', 'state': '' },
+        'user': { 'name': '', 'age': '', 'email': '', 'phone': '', 'gender': '', 'profession': '', 'country': '', 'state': '' },
         'body': null,
         'head': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
         'eyes': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
