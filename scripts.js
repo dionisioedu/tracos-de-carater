@@ -5,7 +5,6 @@ const screens = {
     result: document.getElementById('result')
 };
 
-
 const startBtn = document.getElementById('start-btn');
 const testBtn = document.getElementById('test-btn');
 const nextBtn = document.getElementById('next-btn');
@@ -22,7 +21,7 @@ const pointsLeft = document.getElementById('points-left');
 let currentStep = 0;
 let currentPointsLeft = 10;
 let userChoices = {
-    'user': { 'name': '', 'age': 0, 'email': '', 'phone': '', 'gender': '', 'profession': '', 'country': '', 'state': '' },
+    'user': { 'name': '', 'age': '', 'email': '', 'phone': '', 'gender': '', 'profession': '', 'country': '', 'state': '' },
     'body': null,
     'head': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
     'eyes': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
@@ -31,6 +30,15 @@ let userChoices = {
     'hips': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
     'legs': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 }
 };
+
+const nameInput = document.getElementById('name');
+const ageInput = document.getElementById('age');
+const emailInput = document.getElementById('email');
+const phoneInput = document.getElementById('phone');
+const genderInput = document.getElementById('gender');
+const professionInput = document.getElementById('profession');
+const countryInput = document.getElementById('country');
+const stateInput = document.getElementById('state');
 
 const esquizoideImg = new Image();
 esquizoideImg.src = 'assets/images/esquizoide.svg';
@@ -344,6 +352,17 @@ function nextStep() {
     playDefaultSound();
 }
 
+function saveUserData() {
+    userChoices['user']['name'] = nameInput.value;
+    userChoices['user']['age'] = ageInput.value;
+    userChoices['user']['email'] = emailInput.value;
+    userChoices['user']['phone'] = phoneInput.value;
+    userChoices['user']['gender'] = genderInput.value;
+    userChoices['user']['profession'] = professionInput.value;
+    userChoices['user']['country'] = countryInput.value;
+    userChoices['user']['state'] = stateInput.value;
+}
+
 async function saveResults() {
     console.log("Sending data to server...");
     console.log(JSON.stringify(userChoices));
@@ -363,6 +382,7 @@ startBtn.onclick = () => {
 };
 
 testBtn.onclick = () => {
+    saveUserData();
     showScreen('test');
     loadSteps();
     playDefaultSound();
@@ -373,7 +393,8 @@ nextBtn.onclick = nextStep;
 
 restartBtn.onclick = () => {
     currentStep = 0;
-    userChoices = { 
+    userChoices = {
+        'user': { 'name': '', 'age': 0, 'email': '', 'phone': '', 'gender': '', 'profession': '', 'country': '', 'state': '' },
         'body': null,
         'head': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
         'eyes': { 'esquizoide': 0, 'oral': 0, 'psicopata': 0, 'masoquista': 0, 'rigido': 0 },
